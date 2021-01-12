@@ -1,0 +1,126 @@
+initialize() {
+	initializeMutationRate(2e-5);
+	initializeMutationType("m1", 1.0, "s", "return runif(1, -0.0001, 0);"); //neutral, s = 0
+	initializeMutationType("m2", 1.0, "s", "return runif(1, -0.001, -0.0001);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
+	initializeMutationType("m3", 1.0, "s", "return runif(1, -0.01, -0.001);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
+	initializeMutationType("m4", 1.0, "s", "return runif(1, -1, -0.01);"); //lethal, s = -1
+	initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(f0, f1, f2, f3));
+	initializeGenomicElement(g1, 0, 23500);
+	initializeRecombinationRate(1e-7);
+
+}1 {
+	defineConstant("N",1e4);
+	sim.addSubpop("p1", N);
+	//print("psi source");
+	defineConstant("mmcgens2",c(2:100491));
+	defineConstant("psi",0.067);
+	if(psi!=0){
+		for(gen in mmcgens2){
+			print(p1.individualCount);
+			sim.registerEarlyEvent(NULL,s2.source, gen, gen);
+			print(p1.individualCount);
+			sim.registerModifyChildCallback(NULL,s3.source,NULL,gen,gen);
+			print(p1.individualCount);
+			sim.registerLateEvent(NULL,s4.source, gen, gen);
+			print(p1.individualCount);
+		
+		}}
+	
+	sim.deregisterScriptBlock(s2);
+	sim.deregisterScriptBlock(s3);
+	sim.deregisterScriptBlock(s4);
+}
+
+//In this block, 1 individual from p1 is made to form p2. Then individuals from p2 migrate into p1 with probability psi. Then N-psi individuals from p1 are tagged with a non-zero tag.
+s2 2 early(){
+	//print("Stage 2");
+	//print("total number of individuals after growth and before psi:");
+	//print(N);
+	sim.addSubpopSplit(2,1,p1);
+	p1.setMigrationRates(2, psi);
+	countingp1= N-round(N*psi);
+	countingother=round(N-countingp1);
+	countingp1=countingp1+(N-(countingp1+(countingother)));
+	//print("number of migrants:");
+	//print(countingother);//number of migrants
+	p1.tag=asInteger(countingp1);
+	p2.tag=asInteger(countingother);
+}
+//This callback goes through every individual in every subpopualtion and throws out indivuals that have not been tagged in popualtion p1. It accepts every individual from population p2.
+s3 2 modifyChild(){
+	if(subpop.id==1){
+		if (sourceSubpop.id==1 & p1.tag==0){
+			return(F);}
+		else if (sourceSubpop.tag==0){
+			return(F);}
+		else{
+			sourceSubpop.tag=asInteger(sourceSubpop.tag-1);
+			return(T);}}
+	else{return(T);}
+}
+
+//Remove p2 completely, as it is no more needed.
+s4 2 late(){
+	print("Stage 4");
+	print("Size of p1 after psi is applied:");
+	print(p1.individualCount);
+	p2.setSubpopulationSize(0);
+}
+
+100001 {p1.setSubpopulationSize(433);
+	print("first bottleneck");
+	print(p1.individualCount);
+}
+100002:100041 {
+	print("growth");
+	newSize = asInteger(round(1.00016^(sim.generation - 1001) * 433));
+	//newSize = asInteger(p1.individualCount * 1.00016);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+100042 {
+	p1.setSubpopulationSize(100);
+	print("second bottleneck");
+	print(p1.individualCount);
+}
+100043:100491 {
+	print("growth");
+	newSize = asInteger(round(1.00921^(sim.generation - 1042) * 100));
+	//newSize = asInteger(p1.individualCount * 1.011);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+100491 late() {
+	// remove any new mutations added to the disabled diploid genomes
+	sim.subpopulations.individuals.genome2.removeMutations();
+	
+	// remove mutations in the haploid genomes that have fixed
+	muts = sim.mutationsOfType(m1);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m2);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m3);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m4);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+
+}
+100491 late() {
+	//sim.outputFixedMutations();
+	print(p1.individualCount);
+	//p1.outputMSSample(100, replace=F,filePath="./ms.ms");
+	//sim.outputFixedMutations("./muts.txt", append=F);
+}
+
+
