@@ -1,5 +1,5 @@
 initialize() {
-	initializeMutationRate(2.3e-5);
+	initializeMutationRate(2.3e-3);
 	
 	initializeMutationType("m1", 1.0, "f", 0.0); //neutral, s = 0
 	initializeMutationType("m2", 1.0, "s", "return runif(1, -0.00001, -0.000001);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
