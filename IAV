@@ -1,0 +1,227 @@
+initialize() {
+	initializeMutationRate(2.3e-5);
+	
+	initializeMutationType("m1", 1.0, "f", 0.0); //neutral, s = 0
+	initializeMutationType("m2", 1.0, "s", "return runif(1, -0.00001, -0.000001);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
+	initializeMutationType("m3", 1.0, "s", "return runif(1, -0.0001, -0.00001);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
+	initializeMutationType("m4", 1.0, "f", -1.0); //lethal, s = -1
+	initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(f0, f1, f2, f3));
+	initializeGenomicElement(g1, 0, 2314);
+	initializeRecombinationRate(0);
+
+}1 {
+	//print("psi source");
+	sim.addSubpop("p1", 1);//Starting population size
+	p1.setCloningRate(1.0);
+	defineConstant("mmcgens2",c(2:183));
+	defineConstant("psi",0.067);
+	if(psi!=0){
+		for(gen in mmcgens2){
+			//print(p1.individualCount);
+			sim.registerEarlyEvent(NULL,s2.source, gen, gen);
+			//print(p1.individualCount);
+			sim.registerModifyChildCallback(NULL,s3.source,NULL,gen,gen);
+			//print(p1.individualCount);
+			sim.registerLateEvent(NULL,s4.source, gen, gen);
+			//print(p1.individualCount);
+		
+		}}
+	
+	sim.deregisterScriptBlock(s2);
+	sim.deregisterScriptBlock(s3);
+	sim.deregisterScriptBlock(s4);
+}
+
+//In this block, 1 individual from p1 is made to form p2. Then individuals from p2 migrate into p1 with probability psi. Then N-psi individuals from p1 are tagged with a non-zero tag.
+s2 2 early(){
+	//print("Stage 2");
+	//print("total number of individuals after growth and before psi:");
+	//print(N);
+	sim.addSubpopSplit(2,1,p1);
+	p1.setCloningRate(1.0);
+	p1.setMigrationRates(2, psi);
+	countingp1= N-round(N*psi);
+	countingother=round(N-countingp1);
+	countingp1=countingp1+(N-(countingp1+(countingother)));
+	//print("number of migrants:");
+	//print(countingother);//number of migrants
+	p1.tag=asInteger(countingp1);
+	p2.tag=asInteger(countingother);
+}
+//This callback goes through every individual in every subpopualtion and throws out indivuals that have not been tagged in popualtion p1. It accepts every individual from population p2.
+s3 2 modifyChild(){
+	if(subpop.id==1){
+		if (sourceSubpop.id==1 & p1.tag==0){
+			return(F);}
+		else if (sourceSubpop.tag==0){
+			return(F);}
+		else{
+			sourceSubpop.tag=asInteger(sourceSubpop.tag-1);
+			return(T);}}
+	else{return(T);}
+}
+
+//Remove p2 completely, as it is no more needed.
+s4 2 late(){
+	//print("Stage 4");
+	//print("Size of p1 after psi is applied:");
+	//print(p1.individualCount);
+	p2.setSubpopulationSize(0);
+}
+
+1: {p1.setSubpopulationSize(1);}
+2: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 2.8942661247167507);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+16: {p1.setSubpopulationSize(48);}
+17: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 2.14888024080218);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+30: {p1.setSubpopulationSize(43);}
+31: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 2.16714036764794);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+44: {p1.setSubpopulationSize(2575);}
+45: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.58187070031653);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+58: {p1.setSubpopulationSize(255);}
+59: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.88981802137031);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+72: {p1.setSubpopulationSize(85500);}
+73: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.20824902321203);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+86: {p1.setSubpopulationSize(8600);}
+87: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.44173265253014);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+100: {p1.setSubpopulationSize(27750);}
+101: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.31749507662882);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+114: {p1.setSubpopulationSize(4725);}
+115: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.50970526019256);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+128: {p1.setSubpopulationSize(37);}
+129: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 2.19233824279203);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+142: {p1.setSubpopulationSize(92);}
+143: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 2.04398572986008);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+156: {p1.setSubpopulationSize(2102);}
+157: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 1.60676117783118);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+170: {p1.setSubpopulationSize(31);}
+171: {
+	//print("growth");
+	newSize = asInteger(p1.individualCount * 2.22238005733963);//exponential growth
+	p1.setSubpopulationSize(asInteger(newSize));
+	//print(p1.individualCount);
+	rm("N", T);//remove previous value of N
+	defineConstant("N",newSize);// Assign N = N(previous)*exp(r)
+}
+
+
+183 late() {
+	// remove any new mutations added to the disabled diploid genomes
+	sim.subpopulations.individuals.genome2.removeMutations();
+	
+	// remove mutations in the haploid genomes that have fixed
+	muts = sim.mutationsOfType(m1);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m2);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m3);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m4);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+
+}
+183 late() {
+	sim.outputFixedMutations();
+	p1.outputMSSample(100, replace=F, filePath="./ms.ms");
+	sim.outputFixedMutations("./muts.txt", append=F);
+}
+
+
