@@ -114,7 +114,7 @@ late() {
 
 }100000 late() {
 	//sim.outputFixedMutations();
-	p1.outputSample(100, F, "*", filePath=d_folder + "/output" + d_rep + ".txt", F); //output 100 haploid genomes in the full format
+	p1.outputSample(100, F, "*", d_folder + "/output" + d_rep + ".txt", F); //output 100 haploid genomes in the full format
 	sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F); //output substitutions
 }
 
