@@ -1,20 +1,42 @@
 initialize() {
-	initializeMutationRate(2.3e-3);
+	setSeed(d_seed);
 	
-	initializeMutationType("m1", 1.0, "f", 0.0); //neutral, s = 0
-	initializeMutationType("m2", 1.0, "s", "return runif(1, -0.00001, -0.000001);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
-	initializeMutationType("m3", 1.0, "s", "return runif(1, -0.0001, -0.00001);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
-	initializeMutationType("m4", 1.0, "s", "return runif(1, -1.0, -0.0001);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
+	//define constants:
+	defineConstant("N",1e4);
+	defineConstant("mutn_rate",1.0e-4);
+	defineConstant("rec_rate",1.0e-8);
+	defineConstant("chr_len",10000);
+	defineConstant("psi", d_psi);
 	
-	initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(0.25, 0.25, 0.25, 0.25));
-	initializeGenomicElement(g1, 0, 2341);
-	initializeRecombinationRate(0);
+	//define selection coefficient boundaries:
+	defineConstant("t0", 0.0);
+	defineConstant("t1", -1.0/(2*N));
+	defineConstant("t2", -10.0/(2*N));
+	defineConstant("t3", -100.0/(2*N));
+	defineConstant("t4", -1.0);
+	print(N);
+	print(t0);
+	print(t1);
+	print(t2);
+	print(t3);
+	print(t4);
+	
+	initializeMutationRate(mutn_rate);
+	
+	//specifying the DFE:
+	initializeMutationType("m1", 0.5, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
+	initializeMutationType("m2", 0.5, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
+	initializeMutationType("m3", 0.5, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
+	initializeMutationType("m4", 0.5, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
+	
+	initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(0.30, d_f1, d_f2, d_f3));
+	initializeGenomicElement(g1, 0, chr_len);
+	initializeRecombinationRate(rec_rate);
 }1 {
-	defineConstant("N",1e6);
 	sim.addSubpop("p1", N);
 	p1.setCloningRate(1.0);
 	defineConstant("mmcgens2",c(2:10000040));
-	defineConstant("psi",0.067);
+	
 	if(psi!=0){
 		for(gen in mmcgens2){
 			
@@ -81,10 +103,10 @@ late() {
 
 }
 
-}10000040 late() {
-	sim.outputFixedMutations();
-	p1.outputMSSample(100, replace=F, filePath="./ms.txt");
-	sim.outputFixedMutations("./muts.txt", append=F);
+}100000 late() {
+	//sim.outputFixedMutations();
+	p1.outputMSSample(100, replace=F, filePath=d_folder + "/output" + d_rep + ".txt");
+	sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F);
 }
 
 
