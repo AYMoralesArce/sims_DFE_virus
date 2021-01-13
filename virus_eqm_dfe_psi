@@ -1,3 +1,6 @@
+//This script is to run a population of constant size under non-Wright-Fisher dynamics. A 10kb genomic element is experiencing purifying selection with ~30% of all mutations neutral.
+//How to run:
+//slim -d d_seed=seed -d d_f0=f0 -d d_f1=f1 -d d_f2=f2 -d d_f3=f3 -d "d_simID='simNum'" -d "d_repID='genome number'" -d "d_chrNum='chromosome number'" virus_eqm_dfe_psi.slim
 initialize() {
 	setSeed(d_seed);
 	
@@ -105,8 +108,8 @@ late() {
 
 }100000 late() {
 	//sim.outputFixedMutations();
-	p1.outputMSSample(100, replace=F, filePath=d_folder + "/output" + d_rep + ".txt");
-	sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F);
+	p1.outputSample(100, F, "*", filePath=d_folder + "/output" + d_rep + ".txt", F); //output 100 haploid genomes in the full format
+	sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F); //output substitutions
 }
 
 
