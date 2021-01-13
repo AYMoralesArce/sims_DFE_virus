@@ -1,6 +1,6 @@
 //This script is to run a population of constant size under non-Wright-Fisher dynamics. A 10kb genomic element is experiencing purifying selection with ~30% of all mutations neutral.
 //How to run:
-//slim -d d_seed=seed -d d_f0=f0 -d d_f1=f1 -d d_f2=f2 -d d_f3=f3 -d "d_simID='simNum'" -d "d_repID='genome number'" -d "d_chrNum='chromosome number'" virus_eqm_dfe_psi.slim
+//slim -d d_seed=seed -d d_psi=psi -d d_f1=f1 -d d_f2=f2 -d d_f3=f3 -d "d_rep='replicate number'" -d "d_folder='path/to/output/folder'" virus_eqm_dfe_psi.slim
 initialize() {
 	setSeed(d_seed);
 	
@@ -33,12 +33,12 @@ initialize() {
 	initializeMutationType("m4", 0.5, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
 	
 	initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(0.30, d_f1, d_f2, d_f3));
-	initializeGenomicElement(g1, 0, chr_len);
+	initializeGenomicElement(g1, 0, chr_len-1);
 	initializeRecombinationRate(rec_rate);
 }1 {
 	sim.addSubpop("p1", N);
 	p1.setCloningRate(1.0);
-	defineConstant("mmcgens2",c(2:10000040));
+	defineConstant("mmcgens2",c(2:100000));
 	
 	if(psi!=0){
 		for(gen in mmcgens2){
