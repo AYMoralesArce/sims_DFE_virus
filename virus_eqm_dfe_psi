@@ -89,7 +89,7 @@ s4 2 late(){
 	p2.setSubpopulationSize(0);
 }
 
-}100000 late() {
+100000 late() {
 	// remove any new mutations added to the disabled diploid genomes
 	sim.subpopulations.individuals.genome2.removeMutations();
 	
@@ -112,7 +112,7 @@ s4 2 late(){
 
 }
 
-}100000 late() {
+100000 late() {
 	//sim.outputFixedMutations();
 	p1.outputSample(100, F, "*", d_folder + "/output" + d_rep + ".txt", F); //output 100 haploid genomes in the full format
 	sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F); //output substitutions
