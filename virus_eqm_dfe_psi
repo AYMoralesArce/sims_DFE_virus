@@ -43,7 +43,7 @@ initialize() {
 	initializeRecombinationRate(rec_rate);
 }1 {
 	sim.addSubpop("p1", N);
-	p1.setCloningRate(1.0);
+	//p1.setCloningRate(1.0);
 	defineConstant("mmcgens2",c(2:100000));
 	
 	if(psi!=0){
