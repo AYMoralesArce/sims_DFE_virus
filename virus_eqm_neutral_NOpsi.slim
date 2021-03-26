@@ -1,0 +1,60 @@
+//This script is to run a population of constant size under non-Wright-Fisher dynamics. A 10kb genomic element is experiencing neutrality with ~30% of all mutations representing synonymous sites.
+//N=10000, mu=10^-4 per site per gen, rec rate=10^-8 per site per gen
+//How to run:
+//slim -d d_seed=seed -d "d_rep='replicate number'" -d "d_folder='path/to/output/folder'" virus_eqm_neutral_NOpsi.slim
+//An example command line is as follows:
+//slim -d d_seed=1 -d "d_rep='1'" -d "d_folder='/home/amoral70/virus_eqm_dfe_psi'" virus_eqm_neutral_NOpsi.slim
+initialize() {
+	setSeed(d_seed);
+	
+	//define constants:
+	defineConstant("N",1e4);
+	defineConstant("mutn_rate",1.0e-4);
+	defineConstant("rec_rate",1.0e-8);
+	defineConstant("chr_len",10000);
+	
+	//define selection coefficient boundaries:
+	defineConstant("t0", 0.0);
+	defineConstant("t1", -1.0/(N));
+	
+	initializeMutationRate(mutn_rate);
+	
+	//specifying the DFE:
+	initializeMutationType("m1", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
+  initializeMutationType("m2", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
+	
+	initializeGenomicElementType("g1", c(m1, m2), c(0.30, 0.7));
+	initializeGenomicElement(g1, 0, chr_len-1);
+	initializeRecombinationRate(rec_rate);
+}1 {
+	sim.addSubpop("p1", N);
+}
+
+100000 late() {
+	// remove any new mutations added to the disabled diploid genomes
+	sim.subpopulations.individuals.genome2.removeMutations();
+	
+	// remove mutations in the haploid genomes that have fixed
+	muts = sim.mutationsOfType(m1);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+	
+	muts = sim.mutationsOfType(m2);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+
+	muts = sim.mutationsOfType(m3);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+
+	muts = sim.mutationsOfType(m4);
+	freqs = sim.mutationFrequencies(NULL, muts);
+	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
+
+}
+
+100000  late() {
+	//sim.outputFixedMutations();
+	p1.outputSample(100, F, "*", d_folder + "/output" + d_rep + ".txt", F); //output 100 haploid genomes in the full format
+	sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F); //output substitutions
+}
