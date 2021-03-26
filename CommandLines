@@ -16,7 +16,7 @@
 >> slim -d d_seed=seed -d d_psi=0.075 -d "d_rep='replicate number'" -d "d_folder='path/to/sim11'" virus_eqm_neutral_psi.slim
 >> slim -d d_seed=seed -d d_psi=0.15 -d "d_rep='replicate number'" -d "d_folder='path/to/sim12'" virus_eqm_neutral_psi.slim
 
-#For WF model: virus_eqm_dfe_NOpsi.slim:
+#For WF model= virus_eqm_dfe_NOpsi.slim:
 >> slim -d d_seed=seed -d -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim1_WF'" virus_eqm_dfe_NOpsi.slim
 >> slim -d d_seed=seed -d -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim2_WF'" virus_eqm_dfe_NOpsi.slim
 >> slim -d d_seed=seed -d -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim3_WF'" virus_eqm_dfe_NOpsi.slim
