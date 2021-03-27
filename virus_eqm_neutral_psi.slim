@@ -89,15 +89,6 @@ s4 2 late(){
 	muts = sim.mutationsOfType(m2);
 	freqs = sim.mutationFrequencies(NULL, muts);
 	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
-
-	muts = sim.mutationsOfType(m3);
-	freqs = sim.mutationFrequencies(NULL, muts);
-	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
-
-	muts = sim.mutationsOfType(m4);
-	freqs = sim.mutationFrequencies(NULL, muts);
-	sim.subpopulations.genomes.removeMutations(muts[freqs == 0.5], T);
-
 }
 
 100000 late() {
