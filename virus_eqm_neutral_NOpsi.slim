@@ -21,7 +21,7 @@ initialize() {
 	
 	//specifying the DFE:
 	initializeMutationType("m1", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
-  initializeMutationType("m2", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
+  	initializeMutationType("m2", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
 	
 	initializeGenomicElementType("g1", c(m1, m2), c(0.30, 0.7));
 	initializeGenomicElement(g1, 0, chr_len-1);
