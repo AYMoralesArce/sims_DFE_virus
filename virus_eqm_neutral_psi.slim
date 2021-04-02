@@ -26,6 +26,12 @@ initialize() {
 	initializeMutationType("m1", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
 	initializeMutationType("m2", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
 	
+	//specify the mutation stack policy
+	m1.mutationStackGroup = 1;
+    	m2.mutationStackGroup = 1;
+    	m1.mutationStackPolicy = "l";
+    	m2.mutationStackPolicy = "l";
+    		
 	initializeGenomicElementType("g1", c(m1, m2), c(0.3, 0.7));
 	initializeGenomicElement(g1, 0, chr_len-1);
 	initializeRecombinationRate(rec_rate);
