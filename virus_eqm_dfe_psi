@@ -73,7 +73,7 @@ initialize() {
 
 s2 2 early(){
 	sim.addSubpopSplit(2,1,p1);
-	p1.setCloningRate(1.0);
+	//p1.setCloningRate(1.0);
 	p1.setMigrationRates(2, psi);
 	countingp1= N-round(N*psi);
 	countingother=round(N-countingp1);
