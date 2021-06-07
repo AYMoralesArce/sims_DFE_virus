@@ -27,10 +27,10 @@ initialize()
     initializeMutationRate(mutn_rate);
 
     //specifying the DFE:
-    initializeMutationType("m1", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
-    initializeMutationType("m2", 1.0, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
-    initializeMutationType("m3", 1.0, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
-    initializeMutationType("m4", 1.0, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
+    initializeMutationType("m1", 0.5, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
+    initializeMutationType("m2", 0.5, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
+    initializeMutationType("m3", 0.5, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
+    initializeMutationType("m4", 0.5, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
 
     // g1 genomic element type: uses m1 for all mutations
     initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(0.30, d_f1, d_f2, d_f3));
