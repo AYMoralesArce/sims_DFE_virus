@@ -34,19 +34,9 @@ initialize() {
 	
 	//specifying the DFE:
 	initializeMutationType("m1", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
-	initializeMutationType("m2", 1.0, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
-	initializeMutationType("m3", 1.0, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
-	initializeMutationType("m4", 1.0, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
-	
-	//specify the mutation stack policy
-	m1.mutationStackGroup = 1;
-    	m2.mutationStackGroup = 1;
-    	m3.mutationStackGroup = 1;
-    	m4.mutationStackGroup = 1;
-    	m1.mutationStackPolicy = "l";
-    	m2.mutationStackPolicy = "l";
-    	m3.mutationStackPolicy = "l";
-    	m4.mutationStackPolicy = "l";
+	initializeMutationType("m2", 1.0, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|Nes|<10, uniform distribution
+	initializeMutationType("m3", 1.0, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|Nes|<100, uniform distribution
+	initializeMutationType("m4", 1.0, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|Nes|<10000, uniform distribution
 	
 	initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(0.30, d_f1, d_f2, d_f3));
 	initializeGenomicElement(g1, 0, chr_len-1);
