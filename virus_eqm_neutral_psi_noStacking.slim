@@ -11,7 +11,7 @@ initialize() {
 	
 	//define constants:
 	defineConstant("N",1e4);
-	defineConstant("mutn_rate",1.0e-4);
+	defineConstant("mutn_rate",1.0e-5);
 	defineConstant("rec_rate",1.0e-8);
 	defineConstant("chr_len",10000);
 	defineConstant("psi", d_psi);
@@ -23,8 +23,8 @@ initialize() {
 	initializeMutationRate(mutn_rate);
 	
 	//specifying the DFE:
-	initializeMutationType("m1", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
-	initializeMutationType("m2", 1.0, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
+	initializeMutationType("m1", 1.0, "f", 0.0); //neutral, Nes = 0
+	initializeMutationType("m2", 1.0, "f", 0.0); //neutral, Nes = 0
     		
 	initializeGenomicElementType("g1", c(m1, m2), c(0.3, 0.7));
 	initializeGenomicElement(g1, 0, chr_len-1);
