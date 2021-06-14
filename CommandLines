@@ -1,29 +1,29 @@
 #This is to have the command lines to run the slim scripts:
 #For virus_eqm_dfe_psi.slim:
->> slim -d d_seed=seed -d d_psi=0 -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim1'" virus_eqm_dfe_psi.slim
->> slim -d d_seed=seed -d d_psi=0 -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim2'" virus_eqm_dfe_psi.slim
->> slim -d d_seed=seed -d d_psi=0 -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim3'" virus_eqm_dfe_psi.slim
+>> slim -d d_seed=seed -d d_psi=0 -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim1'" virus_eqm_dfe_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0 -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim2'" virus_eqm_dfe_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0 -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim3'" virus_eqm_dfe_psi_noStacking.slim
 
->> slim -d d_seed=seed -d d_psi=0.075 -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim4'" virus_eqm_dfe_psi.slim
->> slim -d d_seed=seed -d d_psi=0.075 -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim5'" virus_eqm_dfe_psi.slim
->> slim -d d_seed=seed -d d_psi=0.075 -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim6'" virus_eqm_dfe_psi.slim
+>> slim -d d_seed=seed -d d_psi=0.075 -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim4'" virus_eqm_dfe_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0.075 -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim5'" virus_eqm_dfe_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0.075 -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim6'" virus_eqm_dfe_psi_noStacking.slim
 
->> slim -d d_seed=seed -d d_psi=0.15 -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim7'" virus_eqm_dfe_psi.slim
->> slim -d d_seed=seed -d d_psi=0.15 -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim8'" virus_eqm_dfe_psi.slim
->> slim -d d_seed=seed -d d_psi=0.15 -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim9'" virus_eqm_dfe_psi.slim
+>> slim -d d_seed=seed -d d_psi=0.15 -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim7'" virus_eqm_dfe_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0.15 -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim8'" virus_eqm_dfe_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0.15 -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim9'" virus_eqm_dfe_psi_noStacking.slim
 
->> slim -d d_seed=seed -d d_psi=0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim10'" virus_eqm_neutral_psi.slim
->> slim -d d_seed=seed -d d_psi=0.075 -d "d_rep='replicate number'" -d "d_folder='path/to/sim11'" virus_eqm_neutral_psi.slim
->> slim -d d_seed=seed -d d_psi=0.15 -d "d_rep='replicate number'" -d "d_folder='path/to/sim12'" virus_eqm_neutral_psi.slim
+>> slim -d d_seed=seed -d d_psi=0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim10'" virus_eqm_neutral_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0.075 -d "d_rep='replicate number'" -d "d_folder='path/to/sim11'" virus_eqm_neutral_psi_noStacking.slim
+>> slim -d d_seed=seed -d d_psi=0.15 -d "d_rep='replicate number'" -d "d_folder='path/to/sim12'" virus_eqm_neutral_psi_noStacking.slim
 
 #For WF model= virus_eqm_dfe_NOpsi.slim:
->> slim -d d_seed=seed -d -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim1_WF'" virus_eqm_dfe_NOpsi.slim
->> slim -d d_seed=seed -d -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim2_WF'" virus_eqm_dfe_NOpsi.slim
->> slim -d d_seed=seed -d -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim3_WF'" virus_eqm_dfe_NOpsi.slim
+>> slim -d d_seed=seed -d -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim1_WF'" virus_eqm_dfe_WF_haploid_noStacking.slim
+>> slim -d d_seed=seed -d -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='replicate number'" -d "d_folder='path/to/sim2_WF'" virus_eqm_dfe_WF_haploid_noStacking.slim
+>> slim -d d_seed=seed -d -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='replicate number'" -d "d_folder='path/to/sim3_WF'" virus_eqm_dfe_WF_haploid_noStacking.slim
 
->> slim -d d_seed=seed -d "d_rep='replicate number'" -d "d_folder='path/to/sim10_WF'" virus_eqm_neutral_NOpsi.slim
+>> slim -d d_seed=seed -d "d_rep='replicate number'" -d "d_folder='path/to/sim10_WF'" virus_eqm_neutral_WF_haploid_noStacking.slim
 
 #For a diploid WF model:
->> slim -d d_seed=${repID} -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='${repID}'" -d "d_folder='/path/sim13'" virus_eqm_dfe_WF_diploid_nostacking.slim
->> slim -d d_seed=${repID} -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='${repID}'" -d "d_folder='/path/sim14'" virus_eqm_dfe_WF_diploid_nostacking.slim
->> slim -d d_seed=${repID} -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='${repID}'" -d "d_folder='/path/sim15'" virus_eqm_dfe_WF_diploid_nostacking.slim
+>> slim -d d_seed=${repID} -d d_f1=0.7 -d d_f2=0.0 -d d_f3=0.0 -d "d_rep='${repID}'" -d "d_folder='/path/sim13'" virus_eqm_dfe_WF_diploid_noStacking.slim
+>> slim -d d_seed=${repID} -d d_f1=0.0 -d d_f2=0.7 -d d_f3=0.0 -d "d_rep='${repID}'" -d "d_folder='/path/sim14'" virus_eqm_dfe_WF_diploid_noStacking.slim
+>> slim -d d_seed=${repID} -d d_f1=0.0 -d d_f2=0.0 -d d_f3=0.7 -d "d_rep='${repID}'" -d "d_folder='/path/sim15'" virus_eqm_dfe_WF_diploid_noStacking.slim
