@@ -5,18 +5,18 @@ initialize()
     setSeed(d_seed);
 
     //define constants:
-    defineConstant("N",5000);
-    defineConstant("mutn_rate",2.0e-4);
-    defineConstant("rec_rate",2.0e-8);
+    defineConstant("N",10000);
+    defineConstant("mutn_rate",1.0e-5);
+    defineConstant("rec_rate",1.0e-8);
     defineConstant("chr_len",10000);
 
     //define selection coefficient boundaries:
     defineConstant("t0", 0.0);
-    defineConstant("t1", -1.0/(2*N));
-    defineConstant("t2", -10.0/(2*N));
-    defineConstant("t3", -100.0/(2*N));
+    defineConstant("t1", -1.0/(N));
+    defineConstant("t2", -10.0/(N));
+    defineConstant("t3", -100.0/(N));
     defineConstant("t4", -1.0);
-    print(2*N);
+    print(N);
     print(t0);
     print(t1);
     print(t2);
@@ -27,10 +27,10 @@ initialize()
     initializeMutationRate(mutn_rate);
 
     //specifying the DFE:
-    initializeMutationType("m1", 0.5, "s", "return runif(1, t1, t0);"); //neutral, 2Nes = [0,-1]
-    initializeMutationType("m2", 0.5, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|2Nes|<10, uniform distribution
-    initializeMutationType("m3", 0.5, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|2Nes|<100, uniform distribution
-    initializeMutationType("m4", 0.5, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|2Nes|<10000, uniform distribution
+    initializeMutationType("m1", 0.5, "f", 0.0); //neutral, 2Nes = 0
+    initializeMutationType("m2", 0.5, "s", "return runif(1, t2, t1);"); //weakly deleterious, 1<|Nes|<10, uniform distribution
+    initializeMutationType("m3", 0.5, "s", "return runif(1, t3, t2);"); //moderately deleterious, 10<|Nes|<100, uniform distribution
+    initializeMutationType("m4", 0.5, "s", "return runif(1, t4, t3);"); //strongly deleterious, 100<|Nes|<10000, uniform distribution
 
     // g1 genomic element type: uses m1 for all mutations
     initializeGenomicElementType("g1", c(m1,m2,m3,m4), c(0.30, d_f1, d_f2, d_f3));
@@ -44,7 +44,7 @@ initialize()
 {
     sim.addSubpop("p1", N);
 }
-50000  late() {
+100000  late() {
     p1.outputSample(100, F, "*", d_folder + "/output" + d_rep + ".txt", F); //output 100 haploid genomes in the full format
     sim.outputFixedMutations(d_folder + "/output" + d_rep + ".fixed", append=F); //output substitutions
 }
