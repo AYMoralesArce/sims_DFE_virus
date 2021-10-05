@@ -1,3 +1,7 @@
+//With this script, we simulate a haploid population of the human cytomegalovirus using the length of 1/10th of the whole genome. 
+//Notice that this is a non-Wright-Fisher population, meaning that the progeny skew is present throughout the whole process. Please see Sackman et al. 2019 (a cited reference in the paper) for more information about the progeny skew simulation.
+//The population suffers two bottlenecks, and exponential growth is applied to match the previously inferred growth values.
+
 initialize() {
 	initializeMutationRate(2e-5);
 	initializeMutationType("m1", 1.0, "s", "return runif(1, -0.0001, 0);"); //neutral, s = 0
