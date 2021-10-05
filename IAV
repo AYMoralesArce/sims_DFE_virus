@@ -1,3 +1,8 @@
+//With this script, we simulate a haploid population of Influenza A virus using the length of the PB2 segment as a genomic element. 
+//Notice that this is a non-Wright-Fisher population, meaning that the progeny skew is present throughout the whole process. Please see Sackman et al. 2019 (a cited reference in the paper) for more information about the progeny skew simulation.
+//The population suffers thirteen bottlenecks, and exponential growth is applied to match the experimental data measures.
+//Remove comments to print and have a better understanding of every step of this model.
+
 initialize() {
 	initializeMutationRate(2.3e-3);
 	
