@@ -6,4 +6,4 @@
 2) Scripts to perform ABC, and to generate the two plots of cross validation and posteriors for IAV + final set of statistics used ( in the folder IAV)
 3) Scripts to perform ABC, and to generate the two plots of cross validation and posteriors for HCMV + final set of statistics used ( in the folder HCMV)
 4) Scripts for simulating and using DFE-alpha to calculate the DFE in a model with progeny skew (in the folder DFE-alpha)
-5) Script to analyze patient HCMV data is found in HCMV_bioinformatics
+5) Script to analyze patient HCMV data is found in the folder HCMV_bioinformatics
