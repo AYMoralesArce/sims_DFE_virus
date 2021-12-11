@@ -7,9 +7,6 @@ colnames(all_segs) <- c("seg_name","position","wild_type","A","C","G","T")
 adjuntarv2 <- all_segs[1:2341,1:3]
 
 segmentov2 <- all_segs[all_segs$seg_name == 'seg1_H1N1FULL',]
-dim(segmentov2)
-head(segmentov2)
-tail(segmentov2)
 
 #to use apply transform to numeric in matrix
 v2myMat <- as.matrix(sapply(segmentov2, as.numeric))
