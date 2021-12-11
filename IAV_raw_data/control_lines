@@ -1,4 +1,4 @@
-The following steps were applied to filter the raw data:
+The following steps were applied to filter the raw data from control lines as describes in the paper:
 
 all_segs <- read.table("run1226.csv", sep = ",", header = T)
 #rename data frame columns
