@@ -1,1 +1,44 @@
-This folder contains .csv data from control lines cited in the data
+The following steps were applied to filter the raw data:
+
+all_segs <- read.table("run1226.csv", sep = ",", header = T)
+#rename data frame columns
+colnames(all_segs) <- c("seg_name","position","wild_type","A","C","G","T")
+
+adjuntarv2 <- all_segs[1:2341,1:3]
+
+segmentov2 <- all_segs[all_segs$seg_name == 'seg1_H1N1FULL',]
+dim(segmentov2)
+head(segmentov2)
+tail(segmentov2)
+
+#to use apply transform to numeric in matrix
+v2myMat <- as.matrix(sapply(segmentov2, as.numeric))
+apply(v2myMat,2,max)
+
+summedv2 <- rowSums(segmentov2[, c(4, 5, 6, 7)])
+#add the summed total nucleotides to data frame
+seg_sumado <- cbind(segmentov2, summedv2)
+#delete rows with less than 100x (column called summed)
+v2less <- subset(seg_sumado, summedv2<100)
+#delete columns with lower values among four columns
+v2conteo <- segmentov2[,4:7]
+v2M_final=t(apply(v2conteo,1,sort))
+v2_final <- v2M_final[,3:4]
+v2nueva <- cbind(v2_final[,1]+v2_final[,2])
+v2tot_fi <- cbind(v2_final,v2nueva)
+v2_s_freq <- segmentov2[,1:3]
+v2table <- cbind(v2_s_freq, v2tot_fi)
+v2mil_p1 <- round(1000*(v2table[,4]/v2table[,6]))
+v2mil_p2 <- round(1000*(v2table[,5]/v2table[,6]))
+v2fi_tabla <- cbind(v2table,v2mil_p1, v2mil_p2)
+
+
+#filter the ones under 2 percent
+v2porc_1 <- ((v2fi_tabla[,7]*100)/1000)
+v2porc_2 <- ((v2fi_tabla[,8]*100)/1000)
+v2t_finale <- cbind(v2fi_tabla,v2porc_1,v2porc_2)
+#filtrar sites con menos de 2%
+v2t_finalissima <- subset(v2t_finale, v2porc_1 >= 0.2)
+dim(v2t_finalissima)
+write.table(v2t_finalissima, file = "/Users/amoral70/Dropbox (ASU)/Output_cluster_IAV/all_passages_12/filtered_passages/run___.csv", sep="\t", quote = FALSE)
+
